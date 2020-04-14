@@ -108,3 +108,6 @@ dist
 
 # server files
 git-test/
+
+# json server
+json-server/
