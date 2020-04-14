@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchDishes: () => {dispatch(fetchDishes())},
   resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
   fetchComments: () => {dispatch(fetchComments())},
-  fetchPromos: () => {dispatch(fetchPromos())},
+  fetchPromos: () => {dispatch(fetchPromos())}
 });
 
 class Main extends Component  {
