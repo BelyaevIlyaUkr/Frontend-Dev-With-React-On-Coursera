@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => (val) && (val.length >= len);
@@ -105,13 +106,19 @@ function RenderDish({ dish }) {
         return (
             <div className="container">
                 <div className="row">
-                    <Card>
-                        <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
-                        <CardBody>
-                            <CardTitle>{dish.name}</CardTitle>
-                            <CardText>{dish.description}</CardText>
-                        </CardBody>
-                    </Card>
+                    <FadeTransform
+                        in
+                        transformProps={{
+                            exitTransform: 'scale(0.5) translateY(-50%)'
+                        }}>
+                        <Card>
+                            <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
+                            <CardBody>
+                                <CardTitle>{dish.name}</CardTitle>
+                                <CardText>{dish.description}</CardText>
+                            </CardBody>
+                        </Card>
+                    </FadeTransform>
                 </div>
             </div>
         )
@@ -126,10 +133,12 @@ function RenderDish({ dish }) {
 function RenderComments({ comments , postComment, dishId}) {
     const readyComments = comments.map((commment) => {
         return (
-            <li key={commment.id}>
-                <p>{commment.comment}</p>
-                <p>-- {commment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(commment.date)))}</p>
-            </li>
+            <Fade in>
+                <li key={commment.id}>
+                    <p>{commment.comment}</p>
+                    <p>-- {commment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(commment.date)))}</p>
+                </li>
+            </Fade>
         );
     })
 
@@ -141,7 +150,9 @@ function RenderComments({ comments , postComment, dishId}) {
                         <h4>Comments</h4>
                     </header>
                     <ul className="list-unstyled">
-                        {readyComments}
+                        <Stagger in>
+                            {readyComments}
+                        </Stagger>
                     </ul>
                     <CommentForm dishId={dishId} postComment={postComment} />
                 </div>
