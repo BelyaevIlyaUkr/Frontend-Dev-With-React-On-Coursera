@@ -18,8 +18,7 @@ class Contact extends Component {
     }
 
     handleSubmit(values){
-        console.log("Current State is: " + JSON.stringify(values));
-        alert("Current State is: " + JSON.stringify(values));
+        this.props.postFeedback(values);
         this.props.resetFeedbackForm();
     }
 
@@ -175,8 +174,7 @@ class Contact extends Component {
                                     Your Feedback
                                 </Label>
                                 <Col md={10}>
-                                    <Control.textarea model=".message" id="message" name="message" placeholder="Email"
-                                    className="form-control"/>
+                                    <Control.textarea model=".message" id="message" name="message" className="form-control"/>
                                 </Col>
                             </Row>
                             <Row className="form-group">
